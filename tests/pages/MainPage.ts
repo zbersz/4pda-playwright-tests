@@ -6,6 +6,8 @@ export class MainPage extends BasePage {
     private readonly technologyTabLocator: Locator;
     private readonly reviewsHeaderTabLocator: Locator;
     private readonly reviewsTabLocator: Locator;
+    private readonly headerLocator: Locator;
+    private readonly headerAdvLocator: Locator;
     static readonly headerTabs = [
         {
             tabName: 'ОБЗОРЫ',
@@ -31,6 +33,8 @@ export class MainPage extends BasePage {
         this.reviewsTabLocator = this.page
             .locator('li', { has: page.getByRole('link', { name: 'ОБЗОРЫ' }) })
             .locator('.menu-sub');
+        this.headerLocator = this.page.locator('div.holder-no-hidden').first();
+        this.headerAdvLocator = this.page.getByRole('link').nth(5);
 
     }
 
@@ -52,4 +56,8 @@ export class MainPage extends BasePage {
         await this.page.getByRole('link', { name: tabName }).click();
         await this.page.waitForLoadState('networkidle');
         }
+
+    async headerHasCorrectLayout() {
+        await this.checkLayoutByScreenshot(this.headerLocator, 'header.png', [this.headerAdvLocator]);
+    }
 }

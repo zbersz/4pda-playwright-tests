@@ -24,4 +24,18 @@ export class BasePage {
         await expect(this.page).toHaveURL(url);
     }
 
+    async checkLayoutByScreenshot(locator: Locator, screenshotName: string, mask: Locator[] = []) {
+        await this.page.waitForLoadState('networkidle');
+        await this.page.evaluate(async () => {
+            await document.fonts.ready;
+        });
+        await expect(locator).toHaveScreenshot(screenshotName, {
+            animations: 'disabled',
+            caret: 'hide',
+            timeout: 10000,
+            scale: 'css',
+            maxDiffPixelRatio: 0.01,
+            mask,
+        });
+    }
 }
