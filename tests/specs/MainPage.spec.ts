@@ -21,5 +21,8 @@ test.describe('Тесты главной страницы', () => {
             });
         }       
     });
+    test('Проверка лейаута хедера', async ({ mainPage }) => {
+        await mainPage.headerHasCorrectLayout();
+    })
 
 });
