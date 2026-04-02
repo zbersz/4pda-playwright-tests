@@ -34,18 +34,18 @@ export class MainPage extends BasePage {
             .locator('li', { has: page.getByRole('link', { name: 'ОБЗОРЫ' }) })
             .locator('.menu-sub');
         this.headerLocator = this.page.locator('div.holder-no-hidden').first();
-        this.headerAdvLocator = this.page.getByRole('link').nth(5);
+        this.headerAdvLocator = this.page.locator('li:nth-child(5) > a').first();
 
     }
 
     async technologyTabHasCorrectAriaSnapshot() {
         await this.technologyHeaderTabLocator.click();
-        await this.checkAriaShapshot(this.technologyTabLocator, 'technologyTabLocator.yml');
+        await this.checkAriaSnapshot(this.technologyTabLocator, 'technologyTabLocator.yml');
     }
 
     async reviewsTabHasCorrectAriaSnapshot() {
         await this.reviewsHeaderTabLocator.click();
-        await this.checkAriaShapshot(this.reviewsTabLocator, 'reviewsTabLocator.yml');
+        await this.checkAriaSnapshot(this.reviewsTabLocator, 'reviewsTabLocator.yml');
     }
 
     async pageHasCorrectUrl(url: string) {
