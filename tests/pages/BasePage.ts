@@ -22,6 +22,7 @@ export class BasePage {
     }
 
     async checkUrl(url: string | RegExp) {
+        await this.page.waitForURL(url);
         await expect(this.page).toHaveURL(url);
     }
 
@@ -48,7 +49,7 @@ export class BasePage {
                 });
             }));
         });
-        
+
         if (!this._stylesInjected) {
             await this.page.addStyleTag({
                 content: `
