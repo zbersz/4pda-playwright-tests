@@ -54,7 +54,7 @@ export class MainPage extends BasePage {
 
     async openHeaderTabMenu(tabName: string){
         await this.page.getByRole('link', { name: tabName }).click();
-        await this.page.waitForLoadState('networkidle');
+        // await this.page.waitForLoadState('networkidle');
         }
 
     async headerHasCorrectLayout() {
