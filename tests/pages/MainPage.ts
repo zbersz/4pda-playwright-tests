@@ -34,7 +34,7 @@ export class MainPage extends BasePage {
             .locator('li', { has: page.getByRole('link', { name: 'ОБЗОРЫ' }) })
             .locator('.menu-sub');
         this.headerLocator = this.page.locator('div.holder-no-hidden').first();
-        this.headerAdvLocator = this.page.locator('li:nth-child(5) > a').first();
+        this.headerAdvLocator = this.page.locator('ul.menu-main > li.menu-main-item:nth-child(n+5)');
 
     }
 
@@ -54,7 +54,6 @@ export class MainPage extends BasePage {
 
     async openHeaderTabMenu(tabName: string){
         await this.page.getByRole('link', { name: tabName }).click();
-        // await this.page.waitForLoadState('networkidle');
         }
 
     async headerHasCorrectLayout() {
