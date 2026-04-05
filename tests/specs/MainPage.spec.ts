@@ -13,11 +13,12 @@ test.describe('Тесты главной страницы', () => {
     test('Проверка доступности элементов таба ОБЗОРЫ', async ({ mainPage }) => {
         await mainPage.reviewsTabHasCorrectAriaSnapshot();
     });
-    test('Проверка URL табов хедера', async ({ mainPage }) => {
-        for (const { tabName, url } of MainPage.headerTabs) {
-            await test.step(`Проверка URL таба ${tabName}`, async () => {
-                await mainPage.openHeaderTabMenu(tabName);
+    test('Проверка URL элементов хедера', async ({ mainPage }) => {
+        for (const { locator, url, name } of MainPage.headerElements) {
+            await test.step(`Проверка URL таба ${name}`, async () => {
+                await mainPage.openHeaderElement(locator);
                 await mainPage.checkUrl(url);
+                await mainPage.open();
             });
         }       
     });

@@ -8,18 +8,35 @@ export class MainPage extends BasePage {
     private readonly reviewsTabLocator: Locator;
     private readonly headerLocator: Locator;
     private readonly headerAdvLocator: Locator;
-    static readonly headerTabs = [
+    static readonly headerElements = [
         {
-            tabName: 'ОБЗОРЫ',
+            locator: {
+                name:'ОБЗОРЫ', 
+                exact: true,
+            },
             url: /reviews/,
+            name: 'Таб ОБЗОРЫ хедера главной страницы',
         },
         {
-            tabName: 'ИГРЫ',
+            locator: {
+                name:'ИГРЫ',
+            },
             url: /games/,
+            name: 'Таб ИГРЫ хедера главной страницы',
         },
         {
-            tabName: 'ФОРУМ',
+            locator: {
+                name:'ФОРУМ',
+            },
             url: /forum/,
+            name: 'Таб ФОРУМ хедера главной страницы',
+        },
+        {
+            locator: {
+                name:'⏎',
+            },
+            url: /forum\/index\.php\?act=auth/,
+            name: 'Кнопка авторизации хедера главной страницы',
         }
     ]
 
@@ -52,8 +69,8 @@ export class MainPage extends BasePage {
         await this.checkUrl(url);
     }
 
-    async openHeaderTabMenu(tabName: string){
-        await this.page.getByRole('link', { name: tabName }).click();
+    async openHeaderElement(locatorOptions: { name: string, exact?: boolean }) {
+        await this.headerLocator.getByRole('link', locatorOptions).click();
         }
 
     async headerHasCorrectLayout() {
