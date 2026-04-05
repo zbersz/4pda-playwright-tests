@@ -1,0 +1,34 @@
+- link "4":
+  - /url: https://4pda.to/
+- text: Вход
+- separator
+- link "Зарегистрироваться":
+  - /url: https://4pda.to/forum/index.php?act=auth#reg
+- link "Забыли пароль?":
+  - /url: https://4pda.to/forum/index.php?act=auth#lostpass
+- separator
+- textbox "логин"
+- separator
+- textbox "пароль"
+- separator
+- checkbox "Запомнить?" [checked]
+- text: Запомнить
+- superscript: "?"
+- checkbox "Скрытый вход?"
+- text: Скрытый вход
+- superscript: "?"
+- separator
+- img
+- separator
+- textbox "введите число цифрами"
+- separator
+- checkbox "Я не могу ввести ответ"
+- text: Я не могу ввести ответ
+- separator
+- separator
+- button "Войти"
+- separator
+- link "Зарегистрироваться":
+  - /url: https://4pda.to/forum/index.php?act=auth#reg
+- link "Забыли пароль?":
+  - /url: https://4pda.to/forum/index.php?act=auth#lostpass

@@ -20,7 +20,7 @@ test.describe('Тесты главной страницы', () => {
                 await mainPage.checkUrl(url);
                 await mainPage.open();
             });
-        }       
+        }
     });
     test('Проверка лейаута хедера', async ({ mainPage }) => {
         await mainPage.headerHasCorrectLayout();

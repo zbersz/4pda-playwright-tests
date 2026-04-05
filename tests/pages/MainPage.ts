@@ -1,5 +1,6 @@
 import { BasePage } from './BasePage';
-import { Page, Locator, expect } from '@playwright/test';
+import { LoginPage } from './LoginPage';
+import { Page, Locator } from '@playwright/test';
 
 export class MainPage extends BasePage {
     private readonly technologyHeaderTabLocator: Locator;
@@ -75,5 +76,10 @@ export class MainPage extends BasePage {
 
     async headerHasCorrectLayout() {
         await this.checkLayoutByScreenshot(this.headerLocator, 'header.png', [this.headerAdvLocator]);
+    }
+
+    async goToLoginPage() {
+        await this.openHeaderElement({ name: '⏎' });
+        return new LoginPage(this.page);
     }
 }
