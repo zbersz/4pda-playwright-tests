@@ -69,4 +69,9 @@ export class BasePage {
             mask,
         });
     }
+
+    async elementIsChecked(locator: Locator) {
+        await locator.check();
+        await expect(locator).toBeChecked();
+    }
 }
