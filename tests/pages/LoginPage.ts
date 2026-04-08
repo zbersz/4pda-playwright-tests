@@ -3,11 +3,18 @@ import { Page, Locator } from '@playwright/test';
 
 export class LoginPage extends BasePage {
     private readonly headerLoginButtonLocator: Locator;
-    private readonly loginFormLocator;
+    private readonly loginFormLocator: Locator;
     private readonly captchaLoginFormLocator: Locator;
     private readonly rememberCheckboxLoginFormLocator: Locator;
     private readonly anonymLoginCheckboxLoginFormLocator: Locator;
     private readonly cantFillAnswerCheckboxLoginFormLocator: Locator;
+    readonly upperRegisterLinkLoginFormLocator: Locator;
+    readonly lowerRegisterLinkLoginFormLocator: Locator;
+    readonly upperLostPasswordLinkLoginFormLocator: Locator;
+    readonly lowerLostPasswordLinkLoginFormLocator: Locator;
+    static readonly AUTH_REG_URL: RegExp = /forum\/index\.php\?act=auth#reg/;
+    static readonly AUTH_URL: RegExp = /forum\/index\.php\?act=auth/;
+    static readonly AUTH_LOSTPASS_URL: RegExp = /forum\/index\.php\?act=auth#lostpass/;
 
     constructor (page: Page) {
         super(page);
@@ -17,11 +24,10 @@ export class LoginPage extends BasePage {
         this.rememberCheckboxLoginFormLocator = this.page.getByRole('checkbox', { name: 'Запомнить?' });
         this.anonymLoginCheckboxLoginFormLocator = this.page.getByRole('checkbox', { name: 'Скрытый вход?' });
         this.cantFillAnswerCheckboxLoginFormLocator = this.page.getByRole('checkbox', { name: 'Я не могу ввести ответ' });
-    }
-
-    async openLoginPage() {
-        await this.headerLoginButtonLocator.click();
-        await this.page.waitForURL(/forum\/index\.php\?act=auth/);
+        this.upperRegisterLinkLoginFormLocator = this.page.getByRole('link', { name: 'Зарегистрироваться' }).nth(0);
+        this.lowerRegisterLinkLoginFormLocator = this.page.getByRole('link', { name: 'Зарегистрироваться' }).nth(1);
+        this.upperLostPasswordLinkLoginFormLocator = this.page.getByRole('link', { name: 'Забыли пароль?' }).nth(0);
+        this.lowerLostPasswordLinkLoginFormLocator = this.page.getByRole('link', { name: 'Забыли пароль?' }).nth(1);
     }
 
     async loginFormHasCorrectLayout() {
@@ -42,5 +48,10 @@ export class LoginPage extends BasePage {
 
     async cantFillAnswerCheckboxIsChecked() {
         await this.elementIsChecked(this.cantFillAnswerCheckboxLoginFormLocator);
+    }
+
+    async linkHasCorrectUrl(locator: Locator, url: RegExp) {
+        await locator.click();
+        await this.checkUrl(url);
     }
 }
