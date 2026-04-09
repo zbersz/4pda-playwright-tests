@@ -27,22 +27,37 @@ test.describe('Тесты страницы авторизации', () => {
                 method: 'cantFillAnswerCheckboxIsChecked',                     
             }
         ];
+    const links = [
+        {
+            name: 'Верхняя ссылка для регистрации',
+            linkLocator: (page: LoginPage ) => page.upperRegisterLinkLoginFormLocator,
+            url: LoginPage.AUTH_REG_URL,
+        },
+        {
+            name: 'Нижняя ссылка для регистрации',
+            linkLocator: (page: LoginPage ) => page.lowerRegisterLinkLoginFormLocator,
+            url: LoginPage.AUTH_REG_URL,
+        },
+        {
+            name: 'Верхняя ссылка для восстановления пароля',
+            linkLocator: (page: LoginPage ) => page.upperLostPasswordLinkLoginFormLocator,
+            url: LoginPage.AUTH_LOSTPASS_URL,
+        },
+        {
+            name: 'Нижняя ссылка для восстановления пароля',
+            linkLocator: (page: LoginPage ) => page.lowerLostPasswordLinkLoginFormLocator,
+            url: LoginPage.AUTH_LOSTPASS_URL,
+        }
+    ]
 
     checkboxes.forEach(({ name, method }) => {
         test(`Проверка установки чекбокса "${name}"`, async ({ loginPage }) => {
             await (loginPage as any)[method]();
         });
     });
-        test('Проверка URL формы регистрации (верхняя ссылка)', async ({ loginPage }) => {
-        await loginPage.linkHasCorrectUrl(loginPage.upperRegisterLinkLoginFormLocator, LoginPage.AUTH_REG_URL);
-    });
-        test('Проверка URL формы регистрации (нижняя ссылка)', async ({ loginPage }) => {
-        await loginPage.linkHasCorrectUrl(loginPage.lowerRegisterLinkLoginFormLocator, LoginPage.AUTH_REG_URL);
-    });
-        test('Проверка URL формы сброса пароля (верхняя ссылка)', async ({ loginPage }) => {
-        await loginPage.linkHasCorrectUrl(loginPage.upperLostPasswordLinkLoginFormLocator, LoginPage.AUTH_LOSTPASS_URL);
-    });
-        test('Проверка URL формы сброса пароля (нижняя ссылка)', async ({ loginPage }) => {
-        await loginPage.linkHasCorrectUrl(loginPage.lowerLostPasswordLinkLoginFormLocator, LoginPage.AUTH_LOSTPASS_URL);
-    });               
+    links.forEach(({ name, linkLocator, url }) => {
+        test(`Проверка URL ${name} формы авторизации`, async ({ loginPage }) => {
+            await loginPage.linkHasCorrectUrl(linkLocator(loginPage), url);
+        });
+    });             
 });
