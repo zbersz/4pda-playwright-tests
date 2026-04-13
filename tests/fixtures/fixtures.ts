@@ -5,6 +5,7 @@ import { LoginPage } from '../pages/LoginPage';
 type MyFixtures = {
   mainPage: MainPage;
   loginPage: LoginPage;
+  lostPassPage: LoginPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -18,6 +19,11 @@ export const test = base.extend<MyFixtures>({
     const loginPage = await mainPage.goToLoginPage();
     await use(loginPage);
   },
+
+  lostPassPage: async ({ loginPage }, use) => {
+    await loginPage.goToLostPassPage();
+    await use(loginPage);
+  },
 });
 
-export { expect };
+export { expect }; 

@@ -2,62 +2,37 @@ import { test, expect } from '../fixtures/fixtures';
 import { LoginPage } from '../pages/LoginPage';
 
 
-test.describe('Тесты страницы авторизации', () => {
-
-    test('Проверка перехода на страницу авторизации', async ({ loginPage }) => {
+test.describe('Проверки формы авторизации', () => {
+    test('Проверка перехода на страницу', async ({ loginPage }) => {
         await expect(loginPage.page).toHaveURL(LoginPage.AUTH_URL);
     });
-    test('Проверка доступности элементов формы авторизации', async ({ loginPage }) => {
-        await loginPage.loginFormHasCorrectAriaSnapshot();
+    test('Проверка доступности элементов формы', async ({ loginPage }) => {
+        await loginPage.loginForm.formHasCorrectAriaSnapshot();
     });
-    test('Проверка лейаута формы авторизации', async ({ loginPage }) => {
-        await loginPage.loginFormHasCorrectLayout();
+    test('Проверка лейаута формы', async ({ loginPage }) => {
+        await loginPage.loginForm.loginFormHasCorrectLayout();
     });
-    const checkboxes = [
-            {
-                name: 'Запомнить?',
-                method: 'rememberCheckboxIsChecked',
-            },
-            {
-                name: 'Скрытый вход?',
-                method: 'anonymCheckboxIsChecked',                
-            },
-            {
-                name: 'Я не могу ввести ответ',
-                method: 'cantFillAnswerCheckboxIsChecked',                     
-            }
-        ];
-    const links = [
-        {
-            name: 'Верхняя ссылка для регистрации',
-            linkLocator: (page: LoginPage ) => page.upperRegisterLinkLoginFormLocator,
-            url: LoginPage.AUTH_REG_URL,
-        },
-        {
-            name: 'Нижняя ссылка для регистрации',
-            linkLocator: (page: LoginPage ) => page.lowerRegisterLinkLoginFormLocator,
-            url: LoginPage.AUTH_REG_URL,
-        },
-        {
-            name: 'Верхняя ссылка для восстановления пароля',
-            linkLocator: (page: LoginPage ) => page.upperLostPasswordLinkLoginFormLocator,
-            url: LoginPage.AUTH_LOSTPASS_URL,
-        },
-        {
-            name: 'Нижняя ссылка для восстановления пароля',
-            linkLocator: (page: LoginPage ) => page.lowerLostPasswordLinkLoginFormLocator,
-            url: LoginPage.AUTH_LOSTPASS_URL,
-        }
-    ]
-
-    checkboxes.forEach(({ name, method }) => {
-        test(`Проверка установки чекбокса "${name}"`, async ({ loginPage }) => {
-            await (loginPage as any)[method]();
+    test('Проверка установки чекбоксов', async ({ loginPage }) => {
+        await loginPage.loginForm.rememberCheckboxIsChecked();
+        await loginPage.loginForm.anonymCheckboxIsChecked();
+        await loginPage.loginForm.cantFillAnswerCheckboxIsChecked();
+    });
+    test('Переход на форму регистрации (верхняя ссылка)', async ({ loginPage }) => {
+        await loginPage.checkRegisterFromUpperLink();
         });
-    });
-    links.forEach(({ name, linkLocator, url }) => {
-        test(`Проверка URL ${name} формы авторизации`, async ({ loginPage }) => {
-            await loginPage.linkHasCorrectUrl(linkLocator(loginPage), url);
+    test('Переход на форму регистрации (нижняя ссылка)', async ({ loginPage }) => {
+        await loginPage.checkRegisterFromLowerLink();
         });
-    });             
+    test('Переход на форму восстановления пароля (верхняя ссылка)', async ({ loginPage }) => {
+        await loginPage.checkLostPassFromUpperLink();
+        });
+    test('Переход на форму восстановления пароля (нижняя ссылка)', async ({ loginPage }) => {
+        await loginPage.checkLostPassFromLowerLink();
+        });  
 });
+
+test.describe('Проверки формы восстановления пароля', () => {        
+    test('Проверка лейаута формы', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.lostPassFormHasCorrectLayout();
+    }); 
+    });

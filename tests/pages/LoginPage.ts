@@ -1,57 +1,51 @@
+import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import { Page, Locator } from '@playwright/test';
+import { LoginFormFragment } from '../fragments/LoginFormFragment';
+import { LostPassFormFragment } from '../fragments/LostPassFormFragment';
 
 export class LoginPage extends BasePage {
-    private readonly headerLoginButtonLocator: Locator;
-    private readonly loginFormLocator: Locator;
-    private readonly captchaLoginFormLocator: Locator;
-    private readonly rememberCheckboxLoginFormLocator: Locator;
-    private readonly anonymLoginCheckboxLoginFormLocator: Locator;
-    private readonly cantFillAnswerCheckboxLoginFormLocator: Locator;
-    readonly upperRegisterLinkLoginFormLocator: Locator;
-    readonly lowerRegisterLinkLoginFormLocator: Locator;
-    readonly upperLostPasswordLinkLoginFormLocator: Locator;
-    readonly lowerLostPasswordLinkLoginFormLocator: Locator;
-    static readonly AUTH_REG_URL: RegExp = /forum\/index\.php\?act=auth#reg/;
+    private readonly loginFormRoot: Locator;
+    readonly loginForm: LoginFormFragment;
+    private readonly lostPassFormRoot: Locator;
+    readonly lostPassForm: LostPassFormFragment;
     static readonly AUTH_URL: RegExp = /forum\/index\.php\?act=auth/;
+    static readonly AUTH_REG_URL: RegExp = /forum\/index\.php\?act=auth#reg/;
     static readonly AUTH_LOSTPASS_URL: RegExp = /forum\/index\.php\?act=auth#lostpass/;
 
-    constructor (page: Page) {
+    constructor(page: Page) {
         super(page);
-        this.headerLoginButtonLocator = this.page.getByRole('link', { name: '⏎' });
-        this.loginFormLocator = this.page.locator('#auth');
-        this.captchaLoginFormLocator = this.page.locator('.captcha');
-        this.rememberCheckboxLoginFormLocator = this.page.getByRole('checkbox', { name: 'Запомнить?' });
-        this.anonymLoginCheckboxLoginFormLocator = this.page.getByRole('checkbox', { name: 'Скрытый вход?' });
-        this.cantFillAnswerCheckboxLoginFormLocator = this.page.getByRole('checkbox', { name: 'Я не могу ввести ответ' });
-        this.upperRegisterLinkLoginFormLocator = this.page.getByRole('link', { name: 'Зарегистрироваться' }).nth(0);
-        this.lowerRegisterLinkLoginFormLocator = this.page.getByRole('link', { name: 'Зарегистрироваться' }).nth(1);
-        this.upperLostPasswordLinkLoginFormLocator = this.page.getByRole('link', { name: 'Забыли пароль?' }).nth(0);
-        this.lowerLostPasswordLinkLoginFormLocator = this.page.getByRole('link', { name: 'Забыли пароль?' }).nth(1);
+
+        this.loginFormRoot = page.locator('#auth');
+        this.loginForm = new LoginFormFragment(this.loginFormRoot, this);
+
+        this.lostPassFormRoot = page.locator('#lostpass');
+        this.lostPassForm = new LostPassFormFragment(this.lostPassFormRoot, this);
     }
 
-    async loginFormHasCorrectLayout() {
-        await this.checkLayoutByScreenshot(this.loginFormLocator, 'loginForm.png', [this.captchaLoginFormLocator]);
+    async goToLostPassPage() {
+        await this.page.goto('/forum/index.php?act=auth#lostpass');
+        await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
+        await expect(this.lostPassForm.lostPassText).toBeVisible();
     }
 
-    async loginFormHasCorrectAriaSnapshot() {
-        await this.checkAriaSnapshot(this.loginFormLocator, 'loginForm.yml');
+    async checkRegisterFromUpperLink() {
+        await this.loginForm.goToRegister('upper');
+        await this.checkUrl(LoginPage.AUTH_REG_URL);
     }
 
-    async rememberCheckboxIsChecked() {
-        await this.elementIsChecked(this.rememberCheckboxLoginFormLocator);
+    async checkRegisterFromLowerLink() {
+        await this.loginForm.goToRegister('lower');
+        await this.checkUrl(LoginPage.AUTH_REG_URL);
+    }
+    
+    async checkLostPassFromUpperLink() {
+        await this.loginForm.goToLostPass('upper');
+        await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
     }
 
-    async anonymCheckboxIsChecked() {
-        await this.elementIsChecked(this.anonymLoginCheckboxLoginFormLocator);
+    async checkLostPassFromLowerLink() {
+        await this.loginForm.goToLostPass('lower');
+        await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
     }
 
-    async cantFillAnswerCheckboxIsChecked() {
-        await this.elementIsChecked(this.cantFillAnswerCheckboxLoginFormLocator);
-    }
-
-    async linkHasCorrectUrl(locator: Locator, url: RegExp) {
-        await locator.click();
-        await this.checkUrl(url);
-    }
 }

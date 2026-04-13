@@ -44,10 +44,10 @@ export class MainPage extends BasePage {
     constructor (page: Page) {
         super(page);
         this.technologyHeaderTabLocator = this.page.getByRole('link', { name: 'ТЕХНИКА', exact: true });
-        this.technologyTabLocator = page
+        this.technologyTabLocator = this.page
             .locator('li', { has: page.getByRole('link', { name: 'ТЕХНИКА' }) })
             .locator('.menu-sub');
-        this.reviewsHeaderTabLocator = this.page.getByRole('link', { name: 'ОБЗОРЫ' });
+        this.reviewsHeaderTabLocator = this.page.getByRole('link', { name: 'ОБЗОРЫ', exact: true });
         this.reviewsTabLocator = this.page
             .locator('li', { has: page.getByRole('link', { name: 'ОБЗОРЫ' }) })
             .locator('.menu-sub');
