@@ -10,7 +10,7 @@ test.describe('Проверки формы авторизации', () => {
         await loginPage.loginForm.formHasCorrectAriaSnapshot();
     });
     test('Проверка лейаута формы', async ({ loginPage }) => {
-        await loginPage.loginForm.loginFormHasCorrectLayout();
+        await loginPage.loginForm.formHasCorrectLayout();
     });
     test('Проверка установки чекбоксов', async ({ loginPage }) => {
         await loginPage.loginForm.rememberCheckboxIsChecked();
@@ -31,8 +31,17 @@ test.describe('Проверки формы авторизации', () => {
         });  
 });
 
-test.describe('Проверки формы восстановления пароля', () => {        
+test.describe('Проверки формы восстановления пароля', () => {
+    test('Проверка доступности элементов формы', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.formHasCorrectAriaSnapshot();
+    });        
     test('Проверка лейаута формы', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.lostPassFormHasCorrectLayout();
-    }); 
+        await lostPassPage.lostPassForm.formHasCorrectLayout();
+    });
+    test('Проверка тултипа пустого поля логин', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.loginFieldHasValidationMessage();
+    });
+    test('Проверка кликабельности кнопки сброса пароля', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.resetPassButtonIsClickable();
+    });
     });

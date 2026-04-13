@@ -42,7 +42,7 @@ export class LoginFormFragment {
         return this.root.getByRole('link', { name: 'Забыли пароль?' }).nth(1);
     }
 
-    async loginFormHasCorrectLayout() {
+    async formHasCorrectLayout() {
         await this.basePage.checkLayoutByScreenshot(this.root, 'loginForm.png', [this.captcha]);
     }
 

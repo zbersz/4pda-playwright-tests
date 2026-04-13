@@ -74,4 +74,14 @@ export class BasePage {
         await locator.check();
         await expect(locator).toBeChecked();
     }
+
+    async fieldHasValidationMessage(locator: Locator, expectedText: string | RegExp) {
+        const message = await locator.evaluate(el => (el as HTMLInputElement).validationMessage);
+        expect(message).toMatch(expectedText);
+    }
+
+    async buttonIsClickable(button: Locator) {
+        await expect(button).toBeVisible();
+        await expect(button).toBeEnabled();
+    }
 }

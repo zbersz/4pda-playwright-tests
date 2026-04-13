@@ -1,0 +1,27 @@
+- link "4":
+  - /url: https://4pda.to/
+- text: Сброс пароля
+- separator
+- link "Войти":
+  - /url: https://4pda.to/forum/index.php?act=auth#auth
+- link "Зарегистрироваться":
+  - /url: https://4pda.to/forum/index.php?act=auth#reg
+- separator
+- textbox "логин или e-mail"
+- separator
+- text: Введите ваш логин или e-mail (не чувствительно к регистру).
+- separator
+- text: После заполнения формы на вашу почту будет отправлено письмо с инструкцией по восстановлению пароля.
+- separator
+- img
+- separator
+- textbox "введите число цифрами"
+- separator
+- separator
+- separator
+- button "Сбросить пароль"
+- separator
+- link "Войти":
+  - /url: https://4pda.to/forum/index.php?act=auth#auth
+- link "Зарегистрироваться":
+  - /url: https://4pda.to/forum/index.php?act=auth#reg
