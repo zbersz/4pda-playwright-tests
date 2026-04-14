@@ -44,4 +44,12 @@ test.describe('Проверки формы восстановления паро
     test('Проверка кликабельности кнопки сброса пароля', async ({ lostPassPage }) => {
         await lostPassPage.lostPassForm.resetPassButtonIsClickable();
     });
+    test('Проверки отображения сообщений', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.fillLoginMessageToBeVisible();
+        await lostPassPage.lostPassForm.informMessageToBeVisible();
+    });
+    test('Проверки корректности сообщений', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.fillLoginMessageToHaveCorrectText();
+        await lostPassPage.lostPassForm.informMessageToHaveCorrectText();
+    });
     });

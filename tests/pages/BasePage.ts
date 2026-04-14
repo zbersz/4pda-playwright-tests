@@ -75,7 +75,7 @@ export class BasePage {
         await expect(locator).toBeChecked();
     }
 
-    async fieldHasValidationMessage(locator: Locator, expectedText: string | RegExp) {
+    async fieldHasValidTooltipMessage(locator: Locator, expectedText: string | RegExp) {
         const message = await locator.evaluate(el => (el as HTMLInputElement).validationMessage);
         expect(message).toMatch(expectedText);
     }
@@ -83,5 +83,13 @@ export class BasePage {
     async buttonIsClickable(button: Locator) {
         await expect(button).toBeVisible();
         await expect(button).toBeEnabled();
+    }
+
+    async elementIsVisible(locator: Locator) {
+        await expect(locator).toBeVisible();
+    }
+
+    async elementHasCorrectText(locator: Locator, expectedText: string | RegExp) {
+        expect(locator).toContainText(expectedText);
     }
 }
