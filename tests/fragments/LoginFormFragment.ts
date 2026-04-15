@@ -55,15 +55,15 @@ export class LoginFormFragment {
     }
 
     async rememberCheckboxIsChecked() {
-        await this.basePage.elementIsChecked(this.rememberCheckbox);
+        await this.basePage.expectElementToBeChecked(this.rememberCheckbox);
     }
 
     async anonymCheckboxIsChecked() {
-        await this.basePage.elementIsChecked(this.anonymLoginCheckbox);
+        await this.basePage.expectElementToBeChecked(this.anonymLoginCheckbox);
     }
 
     async cantFillAnswerCheckboxIsChecked() {
-        await this.basePage.elementIsChecked(this.cantFillAnswerCheckbox);
+        await this.basePage.expectElementToBeChecked(this.cantFillAnswerCheckbox);
     }
 
     async goToRegister(link: 'upper' | 'lower') {
@@ -79,7 +79,7 @@ export class LoginFormFragment {
     }
 
     async reloadPageChangesCaptcha() {
-        await this.basePage.captchaIsNotSame(this.captcha);
+        await this.basePage.expectElementAttributeToChange(this.captcha, 'src', async () => {await this.basePage.page.reload();});
     }
 
 }

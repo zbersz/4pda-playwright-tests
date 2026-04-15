@@ -5,7 +5,7 @@ import { LoginPage } from '../pages/LoginPage';
 type MyFixtures = {
   mainPage: MainPage;
   loginPage: LoginPage;
-  lostPassPage: LoginPage;
+  lostPassView: LoginPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -20,8 +20,9 @@ export const test = base.extend<MyFixtures>({
     await use(loginPage);
   },
 
-  lostPassPage: async ({ loginPage }, use) => {
+  lostPassView: async ({ loginPage }, use) => {
     await loginPage.goToLostPassPage();
+    await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
     await use(loginPage);
   },
 });

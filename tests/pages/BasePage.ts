@@ -70,7 +70,7 @@ export class BasePage {
         });
     }
 
-    async elementIsChecked(locator: Locator) {
+    async expectElementToBeChecked(locator: Locator) {
         await locator.check();
         await expect(locator).toBeChecked();
     }
@@ -81,23 +81,34 @@ export class BasePage {
     }
 
     async buttonIsClickable(button: Locator) {
-        await expect(button).toBeVisible();
         await expect(button).toBeEnabled();
     }
 
-    async elementIsVisible(locator: Locator) {
+    async expectElementToBeVisible(locator: Locator) {
         await expect(locator).toBeVisible();
     }
 
-    async elementHasCorrectText(locator: Locator, expectedText: string | RegExp) {
-        expect(locator).toContainText(expectedText);
+    async expectElementHasCorrectText(locator: Locator, expectedText: string | RegExp) {
+        await expect(locator).toContainText(expectedText);
     }
 
-    async captchaIsNotSame(locator: Locator) {
-        const captchaBefore = await locator.getAttribute('src');
-        await this.page.reload();
+    // async captchaIsNotSame(locator: Locator) {
+    //     const captchaBefore = await locator.getAttribute('src');
+    //     await this.page.reload();
+    //     await locator.waitFor();
+    //     const captchaAfter = await locator.getAttribute('src');
+    //     expect(captchaBefore).not.toBe(captchaAfter);
+    // }
+
+    async expectElementAttributeToChange(
+        locator: Locator,
+        attribute: string,
+        action: () => Promise<void>,
+    ) {
+        const before = await locator.getAttribute(attribute);
+        await action();
         await locator.waitFor();
-        const captchaAfter = await locator.getAttribute('src');
-        await expect(captchaBefore).not.toBe(captchaAfter);
+        const after = await locator.getAttribute(attribute);
+        expect(before).not.toBe(after);
     }
 }

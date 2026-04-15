@@ -60,23 +60,23 @@ export class LostPassFormFragment {
     }
 
     async fillLoginMessageToBeVisible() {
-        await this.basePage.elementIsVisible(this.fillLoginMessage);
+        await this.basePage.expectElementToBeVisible(this.fillLoginMessage);
     }
 
     async fillLoginMessageToHaveCorrectText() {
-        await this.basePage.elementHasCorrectText(this.fillLoginMessage, LostPassFormFragment.LOGIN_TEXT_MESSAGE);
+        await this.basePage.expectElementHasCorrectText(this.fillLoginMessage, LostPassFormFragment.LOGIN_TEXT_MESSAGE);
     }
 
     async informMessageToBeVisible() {
-        await this.basePage.elementIsVisible(this.informMessage);
+        await this.basePage.expectElementToBeVisible(this.informMessage);
     }
 
     async informMessageToHaveCorrectText() {
-        await this.basePage.elementHasCorrectText(this.informMessage, LostPassFormFragment.INFORM_TEXT_MESSAGE);
+        await this.basePage.expectElementHasCorrectText(this.informMessage, LostPassFormFragment.INFORM_TEXT_MESSAGE);
     }
 
     async reloadPageChangesCaptcha() {
-        await this.basePage.captchaIsNotSame(this.captcha);
+        await this.basePage.expectElementAttributeToChange(this.captcha, 'src', async () => {await this.basePage.page.reload();});
     }
 
 }

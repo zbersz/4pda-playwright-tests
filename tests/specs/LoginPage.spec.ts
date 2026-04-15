@@ -35,27 +35,27 @@ test.describe('Проверки формы авторизации', () => {
 });
 
 test.describe('Проверки формы восстановления пароля', () => {
-    test('Проверка доступности элементов формы', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.formHasCorrectAriaSnapshot();
+    test('Проверка доступности элементов формы', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.formHasCorrectAriaSnapshot();
     });        
-    test('Проверка лейаута формы', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.formHasCorrectLayout();
+    test('Проверка лейаута формы', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.formHasCorrectLayout();
     });
-    test('Проверка тултипа пустого поля логин', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.loginFieldHasValidationMessage();
+    test('Проверка тултипа пустого поля логин', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.loginFieldHasValidationMessage();
     });
-    test('Проверка кликабельности кнопки сброса пароля', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.resetPassButtonIsClickable();
+    test('Проверка кликабельности кнопки сброса пароля', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.resetPassButtonIsClickable();
     });
-    test('Проверки отображения сообщений', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.fillLoginMessageToBeVisible();
-        await lostPassPage.lostPassForm.informMessageToBeVisible();
+    test('Проверки отображения сообщений', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.fillLoginMessageToBeVisible();
+        await lostPassView.lostPassForm.informMessageToBeVisible();
     });
-    test('Проверки корректности сообщений', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.fillLoginMessageToHaveCorrectText();
-        await lostPassPage.lostPassForm.informMessageToHaveCorrectText();
+    test('Проверки корректности сообщений', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.fillLoginMessageToHaveCorrectText();
+        await lostPassView.lostPassForm.informMessageToHaveCorrectText();
     });
-    test('Проверка обновления капчи после перезагрузки страницы', async ({ lostPassPage }) => {
-        await lostPassPage.lostPassForm.reloadPageChangesCaptcha();
+    test('Проверка обновления капчи после перезагрузки страницы', async ({ lostPassView }) => {
+        await lostPassView.lostPassForm.reloadPageChangesCaptcha();
     });
     });
