@@ -10,8 +10,12 @@ export class LoginFormFragment {
         this.basePage = basePage;
     }
 
-    get captcha() {
+    get captchaContainer() {
         return this.root.locator('.captcha');
+    }
+
+    get captcha() {
+        return this.root.locator('.captcha img');
     }
 
     get rememberCheckbox() {
@@ -43,7 +47,7 @@ export class LoginFormFragment {
     }
 
     async formHasCorrectLayout() {
-        await this.basePage.checkLayoutByScreenshot(this.root, 'loginForm.png', [this.captcha]);
+        await this.basePage.checkLayoutByScreenshot(this.root, 'loginForm.png', [this.captchaContainer]);
     }
 
     async formHasCorrectAriaSnapshot() {
@@ -72,6 +76,10 @@ export class LoginFormFragment {
         const locator = 
             link === 'upper' ? this.upperLostPassLink : this.lowerLostPassLink;
         await locator.click();
+    }
+
+    async reloadPageChangesCaptcha() {
+        await this.basePage.captchaIsNotSame(this.captcha);
     }
 
 }

@@ -92,4 +92,12 @@ export class BasePage {
     async elementHasCorrectText(locator: Locator, expectedText: string | RegExp) {
         expect(locator).toContainText(expectedText);
     }
+
+    async captchaIsNotSame(locator: Locator) {
+        const captchaBefore = await locator.getAttribute('src');
+        await this.page.reload();
+        await locator.waitFor();
+        const captchaAfter = await locator.getAttribute('src');
+        await expect(captchaBefore).not.toBe(captchaAfter);
+    }
 }

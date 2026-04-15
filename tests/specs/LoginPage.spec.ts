@@ -28,7 +28,10 @@ test.describe('Проверки формы авторизации', () => {
         });
     test('Переход на форму восстановления пароля (нижняя ссылка)', async ({ loginPage }) => {
         await loginPage.checkLostPassFromLowerLink();
-        });  
+        });
+    test('Проверка обновления капчи после перезагрузки страницы', async ({ loginPage }) => {
+        await loginPage.loginForm.reloadPageChangesCaptcha();
+    });  
 });
 
 test.describe('Проверки формы восстановления пароля', () => {
@@ -51,5 +54,8 @@ test.describe('Проверки формы восстановления паро
     test('Проверки корректности сообщений', async ({ lostPassPage }) => {
         await lostPassPage.lostPassForm.fillLoginMessageToHaveCorrectText();
         await lostPassPage.lostPassForm.informMessageToHaveCorrectText();
+    });
+    test('Проверка обновления капчи после перезагрузки страницы', async ({ lostPassPage }) => {
+        await lostPassPage.lostPassForm.reloadPageChangesCaptcha();
     });
     });

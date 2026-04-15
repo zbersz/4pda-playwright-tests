@@ -14,8 +14,12 @@ export class LostPassFormFragment {
 
     }
 
-    get captcha() {
+    get captchaContainer() {
         return this.root.locator('.captcha');
+    }
+
+    get captcha() {
+        return  this.root.locator('.captcha img');
     }
 
     get lostPassText() {
@@ -39,7 +43,7 @@ export class LostPassFormFragment {
     }
 
     async formHasCorrectLayout() {
-        await this.basePage.checkLayoutByScreenshot(this.root, 'lostPassForm.png', [this.captcha]);
+        await this.basePage.checkLayoutByScreenshot(this.root, 'lostPassForm.png', [this.captchaContainer]);
     }
 
     async formHasCorrectAriaSnapshot() {
@@ -69,6 +73,10 @@ export class LostPassFormFragment {
 
     async informMessageToHaveCorrectText() {
         await this.basePage.elementHasCorrectText(this.informMessage, LostPassFormFragment.INFORM_TEXT_MESSAGE);
+    }
+
+    async reloadPageChangesCaptcha() {
+        await this.basePage.captchaIsNotSame(this.captcha);
     }
 
 }
