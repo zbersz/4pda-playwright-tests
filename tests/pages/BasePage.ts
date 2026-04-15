@@ -92,14 +92,6 @@ export class BasePage {
         await expect(locator).toContainText(expectedText);
     }
 
-    // async captchaIsNotSame(locator: Locator) {
-    //     const captchaBefore = await locator.getAttribute('src');
-    //     await this.page.reload();
-    //     await locator.waitFor();
-    //     const captchaAfter = await locator.getAttribute('src');
-    //     expect(captchaBefore).not.toBe(captchaAfter);
-    // }
-
     async expectElementAttributeToChange(
         locator: Locator,
         attribute: string,
