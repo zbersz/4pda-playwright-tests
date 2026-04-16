@@ -8,7 +8,7 @@ export class LoginPage extends BasePage {
     readonly loginForm: LoginFormFragment;
     private readonly lostPassFormRoot: Locator;
     readonly lostPassForm: LostPassFormFragment;
-    static readonly AUTH_URL: RegExp = /forum\/index\.php\?act=auth/;
+    static readonly AUTH_LOGIN_URL: RegExp = /forum\/index\.php\?act=auth/;
     static readonly AUTH_REG_URL: RegExp = /forum\/index\.php\?act=auth#reg/;
     static readonly AUTH_LOSTPASS_URL: RegExp = /forum\/index\.php\?act=auth#lostpass/;
 
@@ -28,24 +28,28 @@ export class LoginPage extends BasePage {
         await expect(this.lostPassForm.lostPassText).toBeVisible();
     }
 
-    async checkRegisterFromUpperLink() {
-        await this.loginForm.goToRegister('upper');
+    async checkRegisterUrlFromLink(
+        form: LoginFormFragment | LostPassFormFragment,
+        position: 'upper' | 'lower',
+    ) {
+        await form.goToRegister(position);
         await this.checkUrl(LoginPage.AUTH_REG_URL);
     }
 
-    async checkRegisterFromLowerLink() {
-        await this.loginForm.goToRegister('lower');
-        await this.checkUrl(LoginPage.AUTH_REG_URL);
-    }
-    
-    async checkLostPassFromUpperLink() {
-        await this.loginForm.goToLostPass('upper');
+    async checkLostPassUrlFromLink(
+        form: LoginFormFragment,
+        position: 'upper' | 'lower',
+    ) {
+        await form.goToLostPass(position);
         await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
     }
 
-    async checkLostPassFromLowerLink() {
-        await this.loginForm.goToLostPass('lower');
-        await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
+    async checkLoginUrlFromLink(
+        form: LostPassFormFragment,
+        position: 'upper' | 'lower',
+    ) {
+        await form.goToLogin(position);
+        await this.checkUrl(LoginPage.AUTH_LOGIN_URL);
     }
 
 }

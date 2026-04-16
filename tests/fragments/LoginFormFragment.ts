@@ -35,7 +35,7 @@ export class LoginFormFragment {
     }
 
     get lowerRegisterLink() {
-        return this.root.getByRole('link', { name: 'Зарегистрироваться' }).nth(1);
+        return this.root.getByRole('link', { name: 'Зарегистрироваться' }).last();
     }
 
     get upperLostPassLink() {
@@ -43,7 +43,7 @@ export class LoginFormFragment {
     }
 
     get lowerLostPassLink() {
-        return this.root.getByRole('link', { name: 'Забыли пароль?' }).nth(1);
+        return this.root.getByRole('link', { name: 'Забыли пароль?' }).last();
     }
 
     async formHasCorrectLayout() {

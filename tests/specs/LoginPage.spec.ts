@@ -4,7 +4,7 @@ import { LoginPage } from '../pages/LoginPage';
 
 test.describe('Проверки формы авторизации', () => {
     test('Проверка перехода на страницу', async ({ loginPage }) => {
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_URL);
+        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOGIN_URL);
     });
     test('Проверка доступности элементов формы', async ({ loginPage }) => {
         await loginPage.loginForm.formHasCorrectAriaSnapshot();
@@ -18,16 +18,16 @@ test.describe('Проверки формы авторизации', () => {
         await loginPage.loginForm.cantFillAnswerCheckboxIsChecked();
     });
     test('Переход на форму регистрации (верхняя ссылка)', async ({ loginPage }) => {
-        await loginPage.checkRegisterFromUpperLink();
+        await loginPage.checkRegisterUrlFromLink(loginPage.loginForm, 'upper');
         });
     test('Переход на форму регистрации (нижняя ссылка)', async ({ loginPage }) => {
-        await loginPage.checkRegisterFromLowerLink();
+        await loginPage.checkRegisterUrlFromLink(loginPage.loginForm, 'lower');
         });
     test('Переход на форму восстановления пароля (верхняя ссылка)', async ({ loginPage }) => {
-        await loginPage.checkLostPassFromUpperLink();
+        await loginPage.checkLostPassUrlFromLink(loginPage.loginForm, 'upper');
         });
     test('Переход на форму восстановления пароля (нижняя ссылка)', async ({ loginPage }) => {
-        await loginPage.checkLostPassFromLowerLink();
+        await loginPage.checkLostPassUrlFromLink(loginPage.loginForm, 'lower');
         });
     test('Проверка обновления капчи после перезагрузки страницы', async ({ loginPage }) => {
         await loginPage.loginForm.reloadPageChangesCaptcha();
@@ -55,6 +55,18 @@ test.describe('Проверки формы восстановления паро
         await lostPassView.lostPassForm.fillLoginMessageToHaveCorrectText();
         await lostPassView.lostPassForm.informMessageToHaveCorrectText();
     });
+    test('Переход на форму регистрации (верхняя ссылка)', async ({ lostPassView }) => {
+        await lostPassView.checkRegisterUrlFromLink(lostPassView.lostPassForm, 'upper');
+        });
+    test('Переход на форму регистрации (нижняя ссылка)', async ({ lostPassView }) => {
+        await lostPassView.checkRegisterUrlFromLink(lostPassView.lostPassForm, 'lower');
+        });
+    test('Переход на логин форму (верхняя ссылка)', async ({ lostPassView }) => {
+        await lostPassView.checkLoginUrlFromLink(lostPassView.lostPassForm, 'upper');
+        });
+    test('Переход на логин форму (нижняя ссылка)', async ({ lostPassView }) => {
+        await lostPassView.checkLoginUrlFromLink(lostPassView.lostPassForm, 'lower');
+        });
     test('Проверка обновления капчи после перезагрузки страницы', async ({ lostPassView }) => {
         await lostPassView.lostPassForm.reloadPageChangesCaptcha();
     });

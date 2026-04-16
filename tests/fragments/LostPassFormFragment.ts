@@ -42,6 +42,22 @@ export class LostPassFormFragment {
         return this.root.locator('.row.height54px > .small-text');
     }
 
+    get upperRegisterLink() {
+        return this.root.locator('.cell.right').nth(1).getByRole('link', { name: 'Зарегистрироваться' });
+    }
+
+    get lowerRegisterLink() {
+        return this.root.locator('.cell.right').nth(2).getByRole('link', { name: 'Зарегистрироваться' });
+    }
+
+    get upperLoginLink() {
+        return this.root.getByRole('link', { name: 'Войти' }).first();
+    }
+
+    get lowerLoginLink() {
+        return this.root.getByRole('link', { name: 'Войти' }).nth(1);
+    }
+
     async formHasCorrectLayout() {
         await this.basePage.checkLayoutByScreenshot(this.root, 'lostPassForm.png', [this.captchaContainer]);
     }
@@ -77,6 +93,18 @@ export class LostPassFormFragment {
 
     async reloadPageChangesCaptcha() {
         await this.basePage.expectElementAttributeToChange(this.captcha, 'src', async () => {await this.basePage.page.reload();});
+    }
+
+    async goToRegister(link: 'upper' | 'lower') {
+        const locator = 
+            link === 'upper' ? this.upperRegisterLink : this.lowerRegisterLink;
+        await locator.click();
+    }
+
+    async goToLogin(link: 'upper' | 'lower') {
+        const locator = 
+            link === 'upper' ? this.upperLoginLink : this.lowerLoginLink;
+        await locator.click();
     }
 
 }
