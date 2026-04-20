@@ -1,0 +1,34 @@
+- link "4":
+  - /url: https://4pda.to/
+- text: Регистрация
+- separator
+- link "Войти":
+  - /url: https://4pda.to/forum/index.php?act=auth#auth
+- link "Забыли пароль?":
+  - /url: https://4pda.to/forum/index.php?act=auth#lostpass
+- separator
+- separator
+- text: Перед регистрацией необходимо прочесть и согласиться с нашими правилами.
+- separator
+- text: Знание правил упростит получение информации и сделает дальнейшее общение комфортным.
+- separator
+- link "ПРАВИЛА РЕСУРСА 4PDA":
+  - /url: https://4pda.to/forum/index.php?act=boardrules
+- separator
+- link "УСЛОВИЯ ПРЕДОСТАВЛЕНИЯ ИНФОРМАЦИИ":
+  - /url: /copyright_notice/
+- separator
+- separator
+- checkbox "Согласен с Правилами ресурса 4PDA"
+- text: Согласен с Правилами ресурса 4PDA
+- separator
+- checkbox "Согласен с Условиями пр. информации"
+- text: Согласен с Условиями пр. информации
+- separator
+- separator
+- button "Далее"
+- separator
+- link "Войти":
+  - /url: https://4pda.to/forum/index.php?act=auth#auth
+- link "Забыли пароль?":
+  - /url: https://4pda.to/forum/index.php?act=auth#lostpass

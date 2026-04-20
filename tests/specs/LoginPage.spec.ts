@@ -70,4 +70,13 @@ test.describe('Проверки формы восстановления паро
     test('Проверка обновления капчи после перезагрузки страницы', async ({ lostPassView }) => {
         await lostPassView.lostPassForm.reloadPageChangesCaptcha();
     });
+});
+
+test.describe('Проверки формы регистрации', () => {
+    test('Проверка доступности элементов формы', async ({ registrationView }) => {
+        await registrationView.registrationForm.formHasCorrectAriaSnapshot();
     });
+    test('Проверка лейаута формы', async ({ registrationView }) => {
+        await registrationView.registrationForm.formHasCorrectLayout();
+    });
+});

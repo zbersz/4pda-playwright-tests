@@ -6,6 +6,7 @@ type MyFixtures = {
   mainPage: MainPage;
   loginPage: LoginPage;
   lostPassView: LoginPage;
+  registrationView: LoginPage;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -21,8 +22,14 @@ export const test = base.extend<MyFixtures>({
   },
 
   lostPassView: async ({ loginPage }, use) => {
-    await loginPage.goToLostPassPage();
+    await loginPage.goToLostPassForm();
     await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
+    await use(loginPage);
+  },
+
+  registrationView: async ({ loginPage }, use) => {
+    await loginPage.goToRegistrationForm();
+    await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
     await use(loginPage);
   },
 });
