@@ -47,11 +47,11 @@ test.describe('Проверки формы восстановления паро
     test('Проверка кликабельности кнопки сброса пароля', async ({ lostPassView }) => {
         await lostPassView.lostPassForm.resetPassButtonIsClickable();
     });
-    test('Проверки отображения сообщений', async ({ lostPassView }) => {
+    test('Проверка отображения сообщений', async ({ lostPassView }) => {
         await lostPassView.lostPassForm.fillLoginMessageToBeVisible();
         await lostPassView.lostPassForm.informMessageToBeVisible();
     });
-    test('Проверки корректности сообщений', async ({ lostPassView }) => {
+    test('Проверка корректности сообщений', async ({ lostPassView }) => {
         await lostPassView.lostPassForm.fillLoginMessageToHaveCorrectText();
         await lostPassView.lostPassForm.informMessageToHaveCorrectText();
     });
@@ -78,5 +78,17 @@ test.describe('Проверки формы регистрации', () => {
     });
     test('Проверка лейаута формы', async ({ registrationView }) => {
         await registrationView.registrationForm.formHasCorrectLayout();
+    });
+    test('Проверка отображения сообщений', async ({ registrationView }) => {
+        await registrationView.registrationForm.registrationMessageToBeVisible();
+        await registrationView.registrationForm.informMessageToBeVisible();
+    });
+    test('Проверка корректности сообщений', async ({ registrationView }) => {
+        await registrationView.registrationForm.registrationMessageToHaveCorrectText();
+        await registrationView.registrationForm.informMessageToHaveCorrectText();
+    });
+    test('Проверка установки чекбоксов', async ({ registrationView }) => {
+        await registrationView.registrationForm.agreeWithRulesCheckboxIsChecked();
+        await registrationView.registrationForm.agreeWithTermsCheckboxIsChecked();
     });
 });

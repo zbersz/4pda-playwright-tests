@@ -13,7 +13,7 @@ export class LostPassFormFragment {
         this.basePage = basePage;
 
     }
-
+    
     get captchaContainer() {
         return this.root.locator('.captcha');
     }
@@ -39,7 +39,7 @@ export class LostPassFormFragment {
     }
 
     get informMessage() {
-        return this.root.locator('.row.height54px > .small-text');
+        return this.root.locator('.small-text').getByText(/После заполнения формы на вашу почту будет отправлено письмо/i);
     }
 
     get upperRegisterLink() {
