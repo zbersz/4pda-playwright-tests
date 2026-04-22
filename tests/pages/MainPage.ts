@@ -66,10 +66,6 @@ export class MainPage extends BasePage {
         await this.checkAriaSnapshot(this.reviewsTabLocator, 'reviewsTabLocator.yml');
     }
 
-    async pageHasCorrectUrl(url: string) {
-        await this.checkUrl(url);
-    }
-
     async openHeaderElement(locatorOptions: { name: string, exact?: boolean }) {
         await this.headerLocator.getByRole('link', locatorOptions).click();
         }

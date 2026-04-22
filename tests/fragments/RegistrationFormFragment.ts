@@ -37,6 +37,10 @@ export class RegistrationFormFragment {
         return this.root.getByRole('link', { name: 'ПРАВИЛА РЕСУРСА 4PDA' });
     }
 
+    get termsButton() {
+        return this.root.getByRole('link', { name: 'УСЛОВИЯ ПРЕДОСТАВЛЕНИЯ ИНФОРМАЦИИ' });
+    }
+
     async formHasCorrectAriaSnapshot() {
         await this.basePage.checkAriaSnapshot(this.root, 'registrationForm.yml');
     }
@@ -55,5 +59,9 @@ export class RegistrationFormFragment {
 
     async goToRulesPage() {
         await this.rulesButton.click();
+    }
+
+    async goToTermsPage() {
+        await this.termsButton.click();
     }
 }

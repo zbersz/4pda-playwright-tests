@@ -125,4 +125,12 @@ test.describe('Проверки формы регистрации', () => {
         await newPage.waitForLoadState('domcontentloaded');
         await expect(newPage).toHaveURL(BasePage.RULES_PAGE_URL);
     });
+    test('Проверка URL страницы условий предоставления информации', async ({ registrationView, context }) => {
+        const [newPage] = await Promise.all([
+            context.waitForEvent('page'),
+            registrationView.registrationForm.goToTermsPage(),
+        ]);
+        await newPage.waitForLoadState('domcontentloaded');
+        await expect(newPage).toHaveURL(BasePage.TERMS_PAGE_URL);
+    });
 });

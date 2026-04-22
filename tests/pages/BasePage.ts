@@ -5,6 +5,7 @@ export class BasePage {
     protected readonly headerUserLogoLocator: Locator;
     private _stylesInjected = false;
     static readonly RULES_PAGE_URL: RegExp = /forum\/index\.php\?act=boardrules/;
+    static readonly TERMS_PAGE_URL: RegExp = /copyright_notice/;
 
     constructor (page: Page) {
         this.page = page;
