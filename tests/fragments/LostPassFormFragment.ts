@@ -13,7 +13,7 @@ export class LostPassFormFragment {
         this.basePage = basePage;
 
     }
-    
+
     get captchaContainer() {
         return this.root.locator('.captcha');
     }
@@ -70,27 +70,7 @@ export class LostPassFormFragment {
         await this.loginInput.click();
         await this.basePage.fieldHasValidTooltipMessage(this.loginInput, LostPassFormFragment.LOGIN_FIELD_TOOLTIP);
     }
-
-    async resetPassButtonIsClickable() {
-        await this.basePage.buttonIsClickable(this.resetPassButton);
-    }
-
-    async fillLoginMessageToBeVisible() {
-        await this.basePage.expectElementToBeVisible(this.fillLoginMessage);
-    }
-
-    async fillLoginMessageToHaveCorrectText() {
-        await this.basePage.expectElementHasCorrectText(this.fillLoginMessage, LostPassFormFragment.LOGIN_TEXT_MESSAGE);
-    }
-
-    async informMessageToBeVisible() {
-        await this.basePage.expectElementToBeVisible(this.informMessage);
-    }
-
-    async informMessageToHaveCorrectText() {
-        await this.basePage.expectElementHasCorrectText(this.informMessage, LostPassFormFragment.INFORM_TEXT_MESSAGE);
-    }
-
+    
     async reloadPageChangesCaptcha() {
         await this.basePage.expectElementAttributeToChange(this.captcha, 'src', async () => {await this.basePage.page.reload();});
     }

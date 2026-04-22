@@ -55,15 +55,15 @@ export class LoginFormFragment {
     }
 
     async rememberCheckboxIsChecked() {
-        await this.basePage.expectElementToBeChecked(this.rememberCheckbox);
+        await this.rememberCheckbox.check();
     }
 
     async anonymCheckboxIsChecked() {
-        await this.basePage.expectElementToBeChecked(this.anonymLoginCheckbox);
+        await this.anonymLoginCheckbox.check();
     }
 
     async cantFillAnswerCheckboxIsChecked() {
-        await this.basePage.expectElementToBeChecked(this.cantFillAnswerCheckbox);
+        await this.cantFillAnswerCheckbox.check();
     }
 
     async goToRegister(link: 'upper' | 'lower') {

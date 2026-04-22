@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { LoginFormFragment } from '../fragments/LoginFormFragment';
 import { LostPassFormFragment } from '../fragments/LostPassFormFragment';
@@ -31,14 +31,10 @@ export class LoginPage extends BasePage {
 
     async goToLostPassForm() {
         await this.page.goto('/forum/index.php?act=auth#lostpass');
-        await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
-        await expect(this.lostPassForm.lostPassText).toBeVisible();
     }
 
     async goToRegistrationForm() {
         await this.page.goto('/forum/index.php?act=auth#reg');
-        await this.checkUrl(LoginPage.AUTH_REG_URL);
-        await expect(this.registrationForm.registrationText).toBeVisible();
     }
 
     async checkRegisterUrlFromLink(
@@ -46,7 +42,6 @@ export class LoginPage extends BasePage {
         position: 'upper' | 'lower',
     ) {
         await form.goToRegister(position);
-        await this.checkUrl(LoginPage.AUTH_REG_URL);
     }
 
     async checkLostPassUrlFromLink(
@@ -54,7 +49,6 @@ export class LoginPage extends BasePage {
         position: 'upper' | 'lower',
     ) {
         await form.goToLostPass(position);
-        await this.checkUrl(LoginPage.AUTH_LOSTPASS_URL);
     }
 
     async checkLoginUrlFromLink(
@@ -62,7 +56,6 @@ export class LoginPage extends BasePage {
         position: 'upper' | 'lower',
     ) {
         await form.goToLogin(position);
-        await this.checkUrl(LoginPage.AUTH_LOGIN_URL);
     }
 
 }

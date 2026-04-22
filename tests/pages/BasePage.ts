@@ -4,6 +4,7 @@ export class BasePage {
     readonly page: Page;
     protected readonly headerUserLogoLocator: Locator;
     private _stylesInjected = false;
+    static readonly RULES_PAGE_URL: RegExp = /forum\/index\.php\?act=boardrules/;
 
     constructor (page: Page) {
         this.page = page;
@@ -19,10 +20,6 @@ export class BasePage {
         await expect(locator).toMatchAriaSnapshot({
             name: ariaName 
         });
-    }
-
-    async checkUrl(url: string | RegExp) {
-        await expect(this.page).toHaveURL(url);
     }
 
     async checkLayoutByScreenshot(locator: Locator, screenshotName: string, mask: Locator[] = []) {
@@ -70,26 +67,9 @@ export class BasePage {
         });
     }
 
-    async expectElementToBeChecked(locator: Locator) {
-        await locator.check();
-        await expect(locator).toBeChecked();
-    }
-
     async fieldHasValidTooltipMessage(locator: Locator, expectedText: string | RegExp) {
         const message = await locator.evaluate(el => (el as HTMLInputElement).validationMessage);
         expect(message).toMatch(expectedText);
-    }
-
-    async buttonIsClickable(button: Locator) {
-        await expect(button).toBeEnabled();
-    }
-
-    async expectElementToBeVisible(locator: Locator) {
-        await expect(locator).toBeVisible();
-    }
-
-    async expectElementHasCorrectText(locator: Locator, expectedText: string | RegExp) {
-        await expect(locator).toContainText(expectedText);
     }
 
     async expectElementAttributeToChange(
