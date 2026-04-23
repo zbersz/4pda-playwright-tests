@@ -1,12 +1,16 @@
 import { test as base, expect } from '@playwright/test';
 import { MainPage } from '../pages/MainPage';
 import { LoginPage } from '../pages/LoginPage';
+import { LoginFormFragment } from '../fragments/LoginFormFragment';
+import { LostPassFormFragment } from '../fragments/LostPassFormFragment';
+import { RegistrationFormFragment } from '../fragments/RegistrationFormFragment';
 
 type MyFixtures = {
   mainPage: MainPage;
   loginPage: LoginPage;
-  lostPassView: LoginPage;
-  registrationView: LoginPage;
+  loginForm: LoginFormFragment;
+  lostPassForm: LostPassFormFragment;
+  registrationForm: RegistrationFormFragment;
 };
 
 export const test = base.extend<MyFixtures>({
@@ -21,16 +25,20 @@ export const test = base.extend<MyFixtures>({
     await use(loginPage);
   },
 
-  lostPassView: async ({ loginPage }, use) => {
-    await loginPage.goToLostPassForm();
-    await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
-    await use(loginPage);
+  loginForm: async ({ loginPage }, use) => {
+    await use(loginPage.loginForm);
   },
 
-  registrationView: async ({ loginPage }, use) => {
+  lostPassForm: async ({ loginPage }, use) => {
+    await loginPage.goToLostPassForm();
+    await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
+    await use(loginPage.lostPassForm);
+  },
+
+  registrationForm: async ({ loginPage }, use) => {
     await loginPage.goToRegistrationForm();
     await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
-    await use(loginPage);
+    await use(loginPage.registrationForm);
   },
 });
 
