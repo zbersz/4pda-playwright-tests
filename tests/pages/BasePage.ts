@@ -12,11 +12,6 @@ export class BasePage {
         this.headerUserLogoLocator = this.page.locator('a[href="/"]');
     }
 
-    async open() {
-        await this.page.goto('');
-        await expect(this.headerUserLogoLocator).toBeVisible();
-    }
-
     async checkAriaSnapshot(locator: Locator, ariaName: string) {
         await expect(locator).toMatchAriaSnapshot({
             name: ariaName 

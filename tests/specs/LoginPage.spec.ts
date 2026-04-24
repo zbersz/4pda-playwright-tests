@@ -17,38 +17,35 @@ test.describe('Проверки формы авторизации', () => {
     });
     test('Проверка установки чекбоксов', async ({ loginPage }) => {
         await test.step('Чекбокс "Запомнить"', async () => {
-            await loginPage.loginForm.rememberCheckboxIsChecked();
+            await loginPage.loginForm.checkRememberCheckbox();
             await expect(loginPage.loginForm.rememberCheckbox).toBeChecked();
         });
         await test.step('Чекбокс "Скрытый вход"', async () => {
-            await loginPage.loginForm.anonymCheckboxIsChecked();
+            await loginPage.loginForm.checkAnonymCheckbox();
             await expect(loginPage.loginForm.anonymLoginCheckbox).toBeChecked();            
         });
         await test.step('Чекбокс "Я не могу ввести ответ"', async () => {
-            await loginPage.loginForm.cantFillAnswerCheckboxIsChecked();
+            await loginPage.loginForm.checkCantFillAnswerCheckbox();
             await expect(loginPage.loginForm.cantFillAnswerCheckbox).toBeChecked();                     
         });
     });
-    test('Переход на форму регистрации (верхняя ссылка)', async ({ loginPage }) => {
-        await loginPage.loginForm.goToRegister('upper');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
-        });
-    test('Переход на форму регистрации (нижняя ссылка)', async ({ loginPage }) => {
-        await loginPage.loginForm.goToRegister('lower');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
-        });
-    test('Переход на форму восстановления пароля (верхняя ссылка)', async ({ loginPage }) => {
-        await loginPage.loginForm.goToLostPass('upper');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
-        });
-    test('Переход на форму восстановления пароля (нижняя ссылка)', async ({ loginPage }) => {
-        await loginPage.loginForm.goToLostPass('lower');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
-        });
+for (const position of ['upperLink', 'lowerLink'] as const) {
+    test(`Переход на форму регистрации (${position})`, async ({ loginPage }) => {
+            await loginPage.loginForm.goToRegisterForm(position);
+            await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
+    });
+};
+for (const position of ['upperLink', 'lowerLink'] as const) {
+    test(`Переход на форму восстановления пароля (${position})`, async ({ loginPage }) => {
+            await loginPage.loginForm.goToLostPassForm(position);
+            await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOSTPASS_URL);
+    });
+};
     test('Проверка обновления капчи после перезагрузки страницы', async ({ loginPage }) => {
         await loginPage.loginForm.reloadPageChangesCaptcha();
     });  
 });
+
 
 test.describe('Проверки формы восстановления пароля', () => {
     test('Проверка доступности элементов формы', async ({ lostPassForm }) => {
@@ -71,26 +68,23 @@ test.describe('Проверки формы восстановления паро
         await expect(lostPassForm.fillLoginMessage).toContainText(LostPassFormFragment.LOGIN_TEXT_MESSAGE);
         await expect(lostPassForm.informMessage).toContainText(LostPassFormFragment.INFORM_TEXT_MESSAGE);
     });
-    test('Переход на форму регистрации (верхняя ссылка)', async ({ lostPassForm, loginPage }) => {
-        await loginPage.checkRegisterUrlFromLink(lostPassForm, 'upper');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
-        });
-    test('Переход на форму регистрации (нижняя ссылка)', async ({ lostPassForm, loginPage }) => {
-        await loginPage.checkRegisterUrlFromLink(lostPassForm, 'lower');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
-        });
-    test('Переход на логин форму (верхняя ссылка)', async ({ lostPassForm, loginPage }) => {
-        await loginPage.checkLoginUrlFromLink(lostPassForm, 'upper');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOGIN_URL);
-        });
-    test('Переход на логин форму (нижняя ссылка)', async ({ lostPassForm, loginPage }) => {
-        await loginPage.checkLoginUrlFromLink(lostPassForm, 'lower');
-        await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOGIN_URL);
-        });
+for (const position of ['upperLink', 'lowerLink'] as const) {
+    test(`Переход на форму регистрации (${position})`, async ({ lostPassForm, loginPage }) => {
+            await loginPage.goToRegisterFormFromLink(lostPassForm, position);
+            await expect(loginPage.page).toHaveURL(LoginPage.AUTH_REG_URL);
+    });
+};
+for (const position of ['upperLink', 'lowerLink'] as const) {
+    test(`Переход на форму авторизации (${position})`, async ({ lostPassForm, loginPage }) => {
+            await loginPage.goToLoginFormFromLink(lostPassForm, position);
+            await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOGIN_URL);
+    });
+};
     test('Проверка обновления капчи после перезагрузки страницы', async ({ lostPassForm }) => {
         await lostPassForm.reloadPageChangesCaptcha();
     });
 });
+
 
 test.describe('Проверки формы регистрации', () => {
     test('Проверка доступности элементов формы', async ({ registrationForm }) => {

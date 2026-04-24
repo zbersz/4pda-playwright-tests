@@ -18,7 +18,7 @@ test.describe('Тесты главной страницы', () => {
             await test.step(`Проверка URL таба ${name}`, async () => {
                 await mainPage.openHeaderElement(locator);
                 await expect(mainPage.page).toHaveURL(url);
-                await mainPage.open();
+                await mainPage.openMainPage();
             });
         }
     });

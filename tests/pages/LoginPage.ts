@@ -1,10 +1,11 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
 import { LoginFormFragment } from '../fragments/LoginFormFragment';
 import { LostPassFormFragment } from '../fragments/LostPassFormFragment';
 import { RegistrationFormFragment } from '../fragments/RegistrationFormFragment';
 
 export class LoginPage extends BasePage {
+    protected readonly siteLogoLocator: Locator;
     private readonly loginFormRoot: Locator;
     readonly loginForm: LoginFormFragment;
     private readonly lostPassFormRoot: Locator;
@@ -18,6 +19,8 @@ export class LoginPage extends BasePage {
     constructor(page: Page) {
         super(page);
 
+        this.siteLogoLocator = this.page.getByRole('link', { name: '4' });
+
         this.loginFormRoot = page.locator('#auth');
         this.loginForm = new LoginFormFragment(this.loginFormRoot, this);
 
@@ -29,6 +32,11 @@ export class LoginPage extends BasePage {
 
     }
 
+    async openLoginPage() {
+        await this.page.goto('forum/index.php?act=auth');
+        await expect(this.siteLogoLocator).toBeVisible();
+    }
+
     async goToLostPassForm() {
         await this.page.goto('/forum/index.php?act=auth#lostpass');
     }
@@ -37,25 +45,25 @@ export class LoginPage extends BasePage {
         await this.page.goto('/forum/index.php?act=auth#reg');
     }
 
-    async checkRegisterUrlFromLink(
+    async goToRegisterFormFromLink(
         form: LoginFormFragment | LostPassFormFragment,
-        position: 'upper' | 'lower',
+        position: 'upperLink' | 'lowerLink',
     ) {
-        await form.goToRegister(position);
+        await form.goToRegisterForm(position);
     }
 
-    async checkLostPassUrlFromLink(
-        form: LoginFormFragment,
-        position: 'upper' | 'lower',
+    async goToLostPassFormFromLink(
+        form: LoginFormFragment | RegistrationFormFragment,
+        position: 'upperLink' | 'lowerLink',
     ) {
-        await form.goToLostPass(position);
+        await form.goToLostPassForm(position);
     }
 
-    async checkLoginUrlFromLink(
-        form: LostPassFormFragment,
-        position: 'upper' | 'lower',
+    async goToLoginFormFromLink(
+        form: LostPassFormFragment | RegistrationFormFragment,
+        position: 'upperLink' | 'lowerLink',
     ) {
-        await form.goToLogin(position);
+        await form.goToLoginForm(position);
     }
 
 }

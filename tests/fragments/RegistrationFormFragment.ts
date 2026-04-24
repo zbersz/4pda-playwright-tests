@@ -41,6 +41,22 @@ export class RegistrationFormFragment {
         return this.root.getByRole('link', { name: 'УСЛОВИЯ ПРЕДОСТАВЛЕНИЯ ИНФОРМАЦИИ' });
     }
 
+    get upperLostPassLink() {
+        return this.root.getByRole('link', { name: 'Забыли пароль?' }).first();
+    }
+
+    get lowerLostPassLink() {
+        return this.root.getByRole('link', { name: 'Забыли пароль?' }).last();
+    }
+
+    get upperLoginLink() {
+        return this.root.getByRole('link', { name: 'Войти' }).first();
+    }
+
+    get lowerLoginLink() {
+        return this.root.getByRole('link', { name: 'Войти' }).last();
+    }
+
     async formHasCorrectAriaSnapshot() {
         await this.basePage.checkAriaSnapshot(this.root, 'registrationForm.yml');
     }
@@ -63,5 +79,17 @@ export class RegistrationFormFragment {
 
     async goToTermsPage() {
         await this.termsButton.click();
+    }
+
+    async goToLostPassForm(link: 'upperLink' | 'lowerLink') {
+        const locator = 
+            link === 'upperLink' ? this.upperLostPassLink : this.lowerLostPassLink;
+        await locator.click();
+    }
+
+    async goToLoginForm(link: 'upperLink' | 'lowerLink') {
+        const locator = 
+            link === 'upperLink' ? this.upperLoginLink : this.lowerLoginLink;
+        await locator.click();
     }
 }

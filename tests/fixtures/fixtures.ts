@@ -16,16 +16,18 @@ type MyFixtures = {
 export const test = base.extend<MyFixtures>({
   mainPage: async ({ page }, use) => {
     const mainPage = new MainPage(page);
-    await mainPage.open();
+    await mainPage.openMainPage();
     await use(mainPage);
   },
 
-  loginPage: async ({ mainPage }, use) => {
-    const loginPage = await mainPage.goToLoginPage();
+  loginPage: async ({ page }, use) => {
+    const loginPage = new LoginPage(page);
+    await loginPage.openLoginPage();
     await use(loginPage);
   },
 
   loginForm: async ({ loginPage }, use) => {
+    await expect(loginPage.page).toHaveURL(LoginPage.AUTH_LOGIN_URL);
     await use(loginPage.loginForm);
   },
 

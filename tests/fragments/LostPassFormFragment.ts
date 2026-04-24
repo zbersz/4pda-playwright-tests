@@ -75,15 +75,15 @@ export class LostPassFormFragment {
         await this.basePage.expectElementAttributeToChange(this.captcha, 'src', async () => {await this.basePage.page.reload();});
     }
 
-    async goToRegister(link: 'upper' | 'lower') {
+    async goToRegisterForm(link: 'upperLink' | 'lowerLink') {
         const locator = 
-            link === 'upper' ? this.upperRegisterLink : this.lowerRegisterLink;
+            link === 'upperLink' ? this.upperRegisterLink : this.lowerRegisterLink;
         await locator.click();
     }
 
-    async goToLogin(link: 'upper' | 'lower') {
+    async goToLoginForm(link: 'upperLink' | 'lowerLink') {
         const locator = 
-            link === 'upper' ? this.upperLoginLink : this.lowerLoginLink;
+            link === 'upperLink' ? this.upperLoginLink : this.lowerLoginLink;
         await locator.click();
     }
 

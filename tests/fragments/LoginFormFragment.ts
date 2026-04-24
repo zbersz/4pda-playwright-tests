@@ -54,27 +54,27 @@ export class LoginFormFragment {
         await this.basePage.checkAriaSnapshot(this.root, 'loginForm.yml');
     }
 
-    async rememberCheckboxIsChecked() {
+    async checkRememberCheckbox() {
         await this.rememberCheckbox.check();
     }
 
-    async anonymCheckboxIsChecked() {
+    async checkAnonymCheckbox() {
         await this.anonymLoginCheckbox.check();
     }
 
-    async cantFillAnswerCheckboxIsChecked() {
+    async checkCantFillAnswerCheckbox() {
         await this.cantFillAnswerCheckbox.check();
     }
 
-    async goToRegister(link: 'upper' | 'lower') {
+    async goToRegisterForm(link: 'upperLink' | 'lowerLink') {
         const locator = 
-            link === 'upper' ? this.upperRegisterLink : this.lowerRegisterLink;
+            link === 'upperLink' ? this.upperRegisterLink : this.lowerRegisterLink;
         await locator.click();
     }
 
-    async goToLostPass(link: 'upper' | 'lower') {
+    async goToLostPassForm(link: 'upperLink' | 'lowerLink') {
         const locator = 
-            link === 'upper' ? this.upperLostPassLink : this.lowerLostPassLink;
+            link === 'upperLink' ? this.upperLostPassLink : this.lowerLostPassLink;
         await locator.click();
     }
 
