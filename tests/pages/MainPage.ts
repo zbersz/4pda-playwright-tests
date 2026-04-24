@@ -1,9 +1,7 @@
 import { BasePage } from './BasePage';
-import { LoginPage } from './LoginPage';
 import { Page, Locator, expect } from '@playwright/test';
 
 export class MainPage extends BasePage {
-    // protected readonly siteLogoLocator: Locator;
     private readonly technologyHeaderTabLocator: Locator;
     private readonly technologyTabLocator: Locator;
     private readonly reviewsHeaderTabLocator: Locator;
@@ -44,7 +42,6 @@ export class MainPage extends BasePage {
 
     constructor (page: Page) {
         super(page);
-        // this.siteLogoLocator = this.page.getByRole('link', { name: '4' });
         this.technologyHeaderTabLocator = this.page.getByRole('link', { name: 'ТЕХНИКА', exact: true });
         this.technologyTabLocator = this.page
             .locator('li', { has: page.getByRole('link', { name: 'ТЕХНИКА' }) })
@@ -80,9 +77,4 @@ export class MainPage extends BasePage {
     async headerHasCorrectLayout() {
         await this.checkLayoutByScreenshot(this.headerLocator, 'header.png', [this.headerAdvLocator]);
     }
-
-    // async goToLoginPage() {
-    //     await this.openHeaderElement({ name: '⏎' });
-    //     return new LoginPage(this.page);
-    // }
 }
