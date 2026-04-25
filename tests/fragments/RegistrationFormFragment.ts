@@ -4,8 +4,6 @@ import { BasePage } from '../pages/BasePage';
 export class RegistrationFormFragment {
     private readonly root: Locator;
     private readonly basePage: BasePage;
-    static readonly REGISTRATION_TEXT_MESSAGE: RegExp = /Перед регистрацией необходимо прочесть и согласиться с нашими правилами\./;
-    static readonly INFORM_TEXT_MESSAGE: RegExp = /Знание правил упростит получение информации и сделает дальнейшее общение комфортным\./;
 
     constructor(root: Locator, basePage: BasePage) {
         this.root = root;

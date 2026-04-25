@@ -1,8 +1,8 @@
 import { test, expect } from '../fixtures/fixtures';
 import { BasePage } from '../pages/BasePage';
 import { LoginPage } from '../pages/LoginPage';
-import { RegistrationFormFragment } from '../fragments/RegistrationFormFragment';
-import { LostPassFormFragment } from '../fragments/LostPassFormFragment';
+import { REGISTRATION_TEXT_MESSAGE, INFORM_TEXT_MESSAGE_REGISTER } from '../constants/registration.constants';
+import { LOGIN_TEXT_MESSAGE, INFORM_TEXT_MESSAGE_LOST_PASS } from '../constants/lostpass.constants'
 
 
 test.describe('Проверки формы авторизации', () => {   
@@ -65,8 +65,8 @@ test.describe('Проверки формы восстановления паро
         await expect(lostPassForm.informMessage).toBeVisible();
     });
     test('Проверка корректности сообщений', async ({ lostPassForm }) => {
-        await expect(lostPassForm.fillLoginMessage).toContainText(LostPassFormFragment.LOGIN_TEXT_MESSAGE);
-        await expect(lostPassForm.informMessage).toContainText(LostPassFormFragment.INFORM_TEXT_MESSAGE);
+        await expect(lostPassForm.fillLoginMessage).toContainText(LOGIN_TEXT_MESSAGE);
+        await expect(lostPassForm.informMessage).toContainText(INFORM_TEXT_MESSAGE_LOST_PASS);
     });
 for (const position of ['upperLink', 'lowerLink'] as const) {
     test(`Переход на форму регистрации (${position})`, async ({ lostPassForm, loginPage }) => {
@@ -98,8 +98,8 @@ test.describe('Проверки формы регистрации', () => {
         await expect(registrationForm.informMessage).toBeVisible();
     });
     test('Проверка корректности сообщений', async ({ registrationForm }) => {
-        await expect(registrationForm.registrationMessage).toContainText(RegistrationFormFragment.REGISTRATION_TEXT_MESSAGE);
-        await expect(registrationForm.informMessage).toContainText(RegistrationFormFragment.INFORM_TEXT_MESSAGE);
+        await expect(registrationForm.registrationMessage).toContainText(REGISTRATION_TEXT_MESSAGE);
+        await expect(registrationForm.informMessage).toContainText(INFORM_TEXT_MESSAGE_REGISTER);
     });
     test('Проверка установки чекбоксов', async ({ registrationForm }) => {
         await test.step('Чекбокс "Согласен с правилами ресурса"', async () => {

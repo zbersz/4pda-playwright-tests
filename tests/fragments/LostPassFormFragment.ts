@@ -1,12 +1,10 @@
 import { Locator } from '@playwright/test';
 import { BasePage } from '../pages/BasePage';
+import { LOGIN_FIELD_TOOLTIP } from '../constants/lostpass.constants'
 
 export class LostPassFormFragment {
     private readonly root: Locator;
     private readonly basePage: BasePage;
-    static readonly LOGIN_FIELD_TOOLTIP: RegExp = /Заполните это поле|Please fill out this field/;
-    static readonly LOGIN_TEXT_MESSAGE: RegExp = /Введите ваш логин или e-mail\s*\(не чувствительно к регистру\)\./
-    static readonly INFORM_TEXT_MESSAGE: RegExp = /После заполнения формы на вашу почту будет отправлено письмо с инструкцией по восстановлению пароля\./
 
     constructor(root: Locator, basePage: BasePage) {
         this.root = root;
@@ -68,7 +66,7 @@ export class LostPassFormFragment {
 
     async loginFieldHasValidationMessage() {
         await this.loginInput.click();
-        await this.basePage.fieldHasValidTooltipMessage(this.loginInput, LostPassFormFragment.LOGIN_FIELD_TOOLTIP);
+        await this.basePage.fieldHasValidTooltipMessage(this.loginInput, LOGIN_FIELD_TOOLTIP);
     }
     
     async reloadPageChangesCaptcha() {

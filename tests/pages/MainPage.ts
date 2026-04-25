@@ -71,8 +71,11 @@ export class MainPage extends BasePage {
     }
 
     async openHeaderElement(locatorOptions: { name: string, exact?: boolean }) {
-        await this.headerLocator.getByRole('link', locatorOptions).click();
-        }
+        await Promise.all([
+            this.page.waitForLoadState('load'),
+            this.headerLocator.getByRole('link', locatorOptions).click(),
+        ]);
+    }
 
     async headerHasCorrectLayout() {
         await this.checkLayoutByScreenshot(this.headerLocator, 'header.png', [this.headerAdvLocator]);
