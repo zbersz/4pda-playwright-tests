@@ -47,7 +47,7 @@ export class LoginFormFragment {
     }
 
     async formHasCorrectLayout() {
-        await this.basePage.checkLayoutByScreenshot(this.root, 'loginForm.png', [this.captchaContainer]);
+        await this.basePage.checkLayoutByScreenshot(this.root, 'loginForm.png', { mask: [this.captchaContainer] });
     }
 
     async formHasCorrectAriaSnapshot() {

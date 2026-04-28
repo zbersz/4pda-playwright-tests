@@ -52,12 +52,11 @@ export class MainPage extends BasePage {
             .locator('.menu-sub');
         this.headerLocator = this.page.locator('div.holder-no-hidden').first();
         this.headerAdvLocator = this.page.locator('ul.menu-main > li.menu-main-item:nth-child(n+5)');
-
     }
 
     async openMainPage() {
             await this.page.goto('');
-            await expect(this.headerUserLogoLocator).toBeVisible();
+            await expect(this.headerSiteLogoLocator).toBeVisible();
         }
 
     async technologyTabHasCorrectAriaSnapshot() {
@@ -78,6 +77,16 @@ export class MainPage extends BasePage {
     }
 
     async headerHasCorrectLayout() {
-        await this.checkLayoutByScreenshot(this.headerLocator, 'header.png', [this.headerAdvLocator]);
+        await this.checkLayoutByScreenshot(
+            this.headerLocator,
+            'header.png',
+        {
+            mask: [this.headerAdvLocator],
+            fonts: [
+                '16px fontello',
+                '16px "Open Sans Condensed"',
+                '700 16px "Open Sans Condensed"',
+            ],
+        })
     }
 }

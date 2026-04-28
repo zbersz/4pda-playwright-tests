@@ -57,7 +57,7 @@ export class LostPassFormFragment {
     }
 
     async formHasCorrectLayout() {
-        await this.basePage.checkLayoutByScreenshot(this.root, 'lostPassForm.png', [this.captchaContainer]);
+        await this.basePage.checkLayoutByScreenshot(this.root, 'lostPassForm.png', { mask: [this.captchaContainer] });
     }
 
     async formHasCorrectAriaSnapshot() {
